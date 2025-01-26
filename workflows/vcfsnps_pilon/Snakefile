@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+(c) 2022 Guilherme Azevedo |
+All rights reserved.
+This code is distributed under a 3-clause BSD license. Please see
+LICENSE.txt for more information.
+
+DESCRIPTION
+Workflow uses samtools to phase and to index bam files of reads maped to the same reference
+and then uses pilon to call snps and create a vcf file for ech sample.
+Samples are then combined into one vcf file and snps with low quality/coverage are removed.
+
+Output written to `all_samples_filtered.vcf`.
+"""
+
+#import pdb
+
+
+rule all:
+    input:
+        expand("bams/{sample}.bam", sample=config["contigs"]),
+        expand("bams/{sample}.bam.bai", sample=config["contigs"]),
+        expand("vcfs/{sample}.fasta", sample=config["contigs"]),
+        expand("outherouts/{sample}.fasta", sample=config["contigs"]),
+
+rule move_bams:
+    input:
+        bam = lambda wildcards: config["bams"][wildcards.sample]
+    output:
+        "bams/{sample}.bam"
+    threads: 1
+    shell:
+        "cp {input.bam} {output}"
+
+rule index_bams:
+    input:
+        "bams/{sample}.bam"
+    output:
+        "bams/{sample}.bam.bai"
+    threads: 1
+    shell:
+        "samtools index -@ {threads} {input} {output}"
+
+
+rule pilon:
+    input:
+        contig = lambda wildcards: config["contigs"][wildcards.sample],
+        bam = "bams/{sample}.bam",
+        bai = "bams/{sample}.bam.bai"
+    output:
+        "vcfs/{sample}.fasta"
+    threads: 1
+    shell:
+        "pilon --threads {threads} --vcf --fix snps --minqual 10 --mindepth 10 --genome {input.contig} --bam {input.bam} --outdir vcfs --output {wildcards.sample}"
+
+rule move_fastas:
+    input:
+        "vcfs/{sample}.fasta"
+    output:
+        "outherouts/{sample}.fasta"
+    threads: 1
+    shell:
+        "mv {input} {output}"
+

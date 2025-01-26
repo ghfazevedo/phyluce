@@ -1,6 +1,5 @@
-# Wed Jan 25 11:06:22 CST 2023
+# Jan 26 16:34:22 CST 2023
 channels:
-  - faircloth-lab/label/phyluce
   - conda-forge
   - bioconda
   - defaults
@@ -131,4 +130,6 @@ dependencies:
   - yaml=0.2.5
   - zipp=3.4.1
   - zlib=1.2.11
-  - phyluce=1.7.1
+  - pip:
+    - git+https://github.com/ghfazevedo/phyluce.git@phyluce
+

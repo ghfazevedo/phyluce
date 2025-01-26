@@ -1,0 +1,71 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""
+(c) 2022 Guilherme Azevedo |
+All rights reserved.
+This code is distributed under a 3-clause BSD license. Please see
+LICENSE.txt for more information.
+
+DESCRIPTION
+Workflow uses samtools to phase and to index bam files of reads maped to the same reference
+and then uses pilon to call snps and create a vcf file for ech sample.
+Samples are then combined into one vcf file and snps with low quality/coverage are removed.
+
+Output written to `all_samples_filtered.vcf`.
+"""
+
+#import pdb
+
+
+rule all:
+    input:
+        expand("bams/{sample}.bam", sample=config["bams"]),
+        expand("bams/{sample}.bam.bai", sample=config["bams"]),
+        "calls/variants.vcf",
+        "calls/biallelic.vcf",
+ 
+
+rule move_bams:
+    input:
+        bam = lambda wildcards: config["bams"][wildcards.sample]
+    output:
+        "bams/{sample}.bam"
+    threads: 1
+    shell:
+        "cp {input.bam} {output}"
+
+rule index_bams:
+    input:
+        "bams/{sample}.bam"
+    output:
+        "bams/{sample}.bam.bai"
+    threads: 1
+    shell:
+        "samtools index -@ {threads} {input} {output}"
+
+rule index_reference:
+    input:
+        refer = config["reference"]
+    shell:
+        "samtools faidx {input.refer}"
+
+
+rule bcftools_call:
+    input:
+        refer = config["reference"],
+        bam = expand("bams/{sample}.bam", sample=config["bams"]),
+    output:
+        "calls/variants.vcf",
+    shell:
+        "bcftools mpileup -A -a AD,DP -Ou -f {input.refer} {input.bam} | "
+        "bcftools call -mv -Ov -f GQ |"
+        "vcfutils.pl varFilter -Q 30 -d 10 > {output}"
+        
+rule biallelic_call:
+    input:
+        "calls/variants.vcf"
+    output:
+        "calls/biallelic.vcf"
+    shell:        
+        "vcftools --vcf {input} --remove-indels --min-alleles 2 --max-alleles 2 --recode --recode-INFO-all --out {output}"
