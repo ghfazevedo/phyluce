@@ -176,4 +176,4 @@ dependencies:
   - zlib=1.2.11=h516909a_1010
   - zstd=1.4.9=ha95c52a_0
   - pip:
-    - git+https://github.com/ghfazevedo/phyluce.git@phyluce
+    - git+https://github.com/ghfazevedo/phyluce.git@main
