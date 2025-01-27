@@ -1,0 +1,11 @@
+bams:
+    H_arcalorus_COLOR_G3824: /usr/scratch/userdata/azevedo/workdir/Habro_UCE/snps_transcript_reference_ref_mapped/mapped_reads/H_arcalorus_COLOR_G3824.fxm.sorted.md.bam
+    H_arcalorus_DAVIS_G3715: /usr/scratch/userdata/azevedo/workdir/Habro_UCE/snps_transcript_reference_ref_mapped/mapped_reads/H_arcalorus_DAVIS_G3715.fxm.sorted.md.bam
+    H_arcalorus_G3154: /usr/scratch/userdata/azevedo/workdir/Habro_UCE/snps_transcript_reference_ref_mapped/mapped_reads/H_arcalorus_G3154.fxm.sorted.md.bam
+    H_arcalorus_G3176: /usr/scratch/userdata/azevedo/workdir/Habro_UCE/snps_transcript_reference_ref_mapped/mapped_reads/H_arcalorus_G3176.fxm.sorted.md.bam
+    H_arcalorus_GUADA_G2639: /usr/scratch/userdata/azevedo/workdir/Habro_UCE/snps_transcript_reference_ref_mapped/mapped_reads/H_arcalorus_GUADA_G2639.fxm.sorted.md.bam
+    Havaika_jamiesoni_IDWM21011: /usr/scratch/userdata/azevedo/workdir/Habro_UCE/snps_transcript_reference_ref_mapped/mapped_reads/Havaika_jamiesoni_IDWM21011.fxm.sorted.md.bam
+    Havaika_kahiliensis_IDWM21012: /usr/scratch/userdata/azevedo/workdir/Habro_UCE/snps_transcript_reference_ref_mapped/mapped_reads/Havaika_kahiliensis_IDWM21012.fxm.sorted.md.bam
+
+reference:
+    /usr/scratch/userdata/azevedo/workdir/Habro_UCE/Habro_busco_umphased_consensus/pseudoreference.fasta
