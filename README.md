@@ -2,25 +2,25 @@
 
 
 
-> # Customized Phyluce with New Snakemake Workflows
->
->This is a **personalized** version of [phyluce][1] with >additional workflows implemented using Snakemake. Please cite >[phyluce][1]!!
->
->## Changes
->- Added custom workflows for snp calling and phasing.
->
->## Installation
->
->```bash
-># Download the custom Conda environment file
->wget https://raw.githubusercontent.com/ghfazevedo/phyluce/main/>distrib/phyluce-1.7.1-py36-Linux-conda.yml
->
-># Create the environment
->conda env create -n custom_phyluce --file phyluce-1.7.>1-py36-Linux-conda.yml
->
-># Activate the environment
->conda activate custom_phyluce
->```
+ # Customized Phyluce with New Snakemake Workflows
+
+This is a **personalized** version of [phyluce][1] with additional workflows implemented using Snakemake. Please cite >phyluce][1]!!
+
+## Changes
+- Added custom workflows for snp calling and phasing.
+
+## Installation
+
+```bash
+# Download the custom Conda environment file
+wget https://raw.githubusercontent.com/ghfazevedo/phyluce/main/distrib/phyluce-1.7.1-py36-Linux-conda.yml
+
+# Create the environment
+conda env create -n custom_phyluce --file phyluce-1.7.1-py36-Linux-conda.yml
+
+# Activate the environment
+conda activate custom_phyluce
+```
 
 
 # phyluce: software for UCE (and general) phylogenomics
